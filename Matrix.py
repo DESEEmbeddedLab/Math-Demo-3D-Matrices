@@ -20,8 +20,15 @@ class openGLDisplay(QtWidgets.QOpenGLWidget):
         self.coordinateflag = 0
         self.displayflag = 1
         self.center = np.array([0.0, 0.0, 0.0])
-        self.front = np.array([0.0, 0.0, 1.0])
-        self.up = np.array([0.0, 1.0, 0.0])
+        self.resetfront = np.array([1.0 / math.sqrt(2), 0.0, 1.0 / math.sqrt(2)])
+        self.resetup = np.array([0.0, 1.0, 0.0])
+        up = self.resetup
+        self.resetup = up * math.cos(math.pi / 6) - self.resetfront * math.sin(math.pi / 6)
+        self.resetup /= np.linalg.norm(self.resetup)
+        self.resetfront = self.resetfront * math.cos(math.pi / 6) + up * math.sin(math.pi / 6)
+        self.resetfront /= np.linalg.norm(self.resetfront)
+        self.front = self.resetfront
+        self.up = self.resetup
 
     def paint_axis(self):
         origin = self.center
@@ -46,6 +53,20 @@ class openGLDisplay(QtWidgets.QOpenGLWidget):
         GL.glVertex3f(origin[0], origin[1], origin[2])
         GL.glVertex3f(origin[0], origin[1], origin[2] + 0.5)
         GL.glEnd()  
+
+    def paint_vector(self, vector, r = 0.0, g = 0.0, b = 0.0):
+        if(np.linalg.norm(vector) == 0):
+            return
+
+        GL.glColor3f(r, g, b)   
+        GL.glLineWidth(4)
+
+        GL.glBegin(GL.GL_LINES)
+        GL.glVertex3f(0.0 , 0.0, 0.0)
+        GL.glVertex3fv(vector)
+        GL.glEnd()
+
+        GL.glLineWidth(2)
 
     def paint_matrix_lines(self, matrix, s = 10):
         x = matrix.dot(np.array([[1.0], [0.0], [0.0]]))
@@ -138,7 +159,7 @@ class openGLDisplay(QtWidgets.QOpenGLWidget):
         GL.glVertex3fv((y + z) * s)
         GL.glEnd()
 
-    def paint_matrix(self, matrix, r = 0.0, g = 0.0, b = 0.0, d = 0.1):
+    def paint_matrix(self, matrix, r = 0.0, g = 0.0, b = 0.0, d = 0.5):
         x = matrix.dot(np.array([[1.0], [0.0], [0.0]]))
         y = matrix.dot(np.array([[0.0], [1.0], [0.0]]))
         z = matrix.dot(np.array([[0.0], [0.0], [1.0]]))
@@ -269,7 +290,9 @@ class openGLDisplay(QtWidgets.QOpenGLWidget):
             self.paint_axis()
 
         GL.glDisable(GL.GL_LINE_STIPPLE)
-        self.paint_matrix(np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]))
+        self.paint_matrix_planes(np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]))
+
+        self.paint_matrix(np.array([[1.0, 1.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]), 1, 0, 0)
         
     def initializeGL(self):
         print("\033[4;30;102m INITIALIZE GL\033[0m")
@@ -350,8 +373,8 @@ class openGLDisplay(QtWidgets.QOpenGLWidget):
         self.center += y * self.zoom * self.up
 
         if(event.key() == QtCore.Qt.Key_R):
-            self.front = np.array([0.0, 0.0, 1.0])
-            self.up = np.array([0.0, 1.0, 0.0])
+            self.front = self.resetfront
+            self.up = self.resetup
         
         if(event.key() == QtCore.Qt.Key_T):
             self.center = np.array([0.0, 0.0, 0.0])
