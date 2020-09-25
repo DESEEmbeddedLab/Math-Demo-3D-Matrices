@@ -58,6 +58,35 @@ class mainWindow(QtWidgets.QMainWindow):
         self.Rotationcalculatebutton = self.findChild(QtWidgets.QPushButton, 'Rotationcalculatebutton')        
         self.Rotationcalculatebutton.clicked.connect(self.Rotationcalculatebuttonclicked)
 
+        #Inverse
+        self.Displayinversematrixbox00 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox00_2')
+        self.Displayinversematrixbox01 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox01_2')
+        self.Displayinversematrixbox02 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox02_2')
+        self.Displayinversematrixbox10 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox10_2')
+        self.Displayinversematrixbox11 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox11_2')
+        self.Displayinversematrixbox12 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox12_2')
+        self.Displayinversematrixbox20 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox20_2')
+        self.Displayinversematrixbox21 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox21_2')
+        self.Displayinversematrixbox22 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox22_2')
+
+        self.Displayinvmatrixbox00 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox00_3')
+        self.Displayinvmatrixbox01 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox01_3')
+        self.Displayinvmatrixbox02 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox02_3')
+        self.Displayinvmatrixbox10 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox10_3')
+        self.Displayinvmatrixbox11 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox11_3')
+        self.Displayinvmatrixbox12 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox12_3')
+        self.Displayinvmatrixbox20 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox20_3')
+        self.Displayinvmatrixbox21 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox21_3')
+        self.Displayinvmatrixbox22 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox22_3')
+
+        self.Displaydeterminantbox = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaydeterminantbox')
+
+        self.Calculateinversematrixbutton = self.findChild(QtWidgets.QPushButton, 'Calculateinversematrixbutton')
+        self.Calculateinversematrixbutton.clicked.connect(self.Calculateinversematrixbuttonclicked)
+        self.Displayinversematrixbutton = self.findChild(QtWidgets.QPushButton, 'Displayinversematrixbutton')
+        self.Displayinversematrixbutton.clicked.connect(self.Displayinversematrixbuttonclicked)
+        self.Displayinversematrixbutton.setDisabled(True)
+
     def setupUI(self):
         print("\033[1;101m SETUP UI \033[0m")
 
@@ -72,6 +101,8 @@ class mainWindow(QtWidgets.QMainWindow):
         self.openGLWidget.setFocus()
 
         self.matrix = np.array([[2.0, 0.0, 0.0], [0.0, 2.0, 0.0], [0.0, 0.0, 2.0]])
+        self.inversematrix = np.array([[2.0, 0.0, 0.0], [0.0, 2.0, 0.0], [0.0, 0.0, 2.0]])
+        self.invmatrix = np.array([[2.0, 0.0, 0.0], [0.0, 2.0, 0.0], [0.0, 0.0, 2.0]])
         self.vector = np.array([[0.0],[0.0],[0.0]])
         self.Displaymatrix_0()
         self.Displaymatrixeigen()
@@ -177,6 +208,44 @@ class mainWindow(QtWidgets.QMainWindow):
         self.matrix[2, 2] = z[2, 0]
 
         self.Displaymatrix_0()
+
+    def Calculateinversematrixbuttonclicked(self):
+        self.inversematrix[0, 0] = self.Displayinversematrixbox00.value()
+        self.inversematrix[0, 1] = self.Displayinversematrixbox01.value()
+        self.inversematrix[0, 2] = self.Displayinversematrixbox02.value()
+        self.inversematrix[1, 0] = self.Displayinversematrixbox10.value()
+        self.inversematrix[1, 1] = self.Displayinversematrixbox11.value()
+        self.inversematrix[1, 2] = self.Displayinversematrixbox12.value()
+        self.inversematrix[2, 0] = self.Displayinversematrixbox20.value()
+        self.inversematrix[2, 1] = self.Displayinversematrixbox21.value()
+        self.inversematrix[2, 2] = self.Displayinversematrixbox22.value()
+
+        self.inversematrixdeterminant = np.linalg.det(self.inversematrix)
+        self.Displaydeterminantbox.setValue(self.inversematrixdeterminant)
+
+        if(self.inversematrixdeterminant != 0):
+            self.invmatrix = np.linalg.inv(self.inversematrix)
+
+            self.Displayinvmatrixbox00.setValue(self.invmatrix[0, 0])
+            self.Displayinvmatrixbox01.setValue(self.invmatrix[0, 1])
+            self.Displayinvmatrixbox02.setValue(self.invmatrix[0, 2])
+            self.Displayinvmatrixbox10.setValue(self.invmatrix[1, 0])
+            self.Displayinvmatrixbox11.setValue(self.invmatrix[1, 1])
+            self.Displayinvmatrixbox12.setValue(self.invmatrix[1, 2])
+            self.Displayinvmatrixbox20.setValue(self.invmatrix[2, 0])
+            self.Displayinvmatrixbox21.setValue(self.invmatrix[2, 1])
+            self.Displayinvmatrixbox22.setValue(self.invmatrix[2, 2])
+
+            self.Displayinversematrixbutton.setDisabled(False)
+            self.openGLWidget.matrix = copy.deepcopy(self.inversematrix)
+            self.openGLWidget.displayflag = 2
+            self.openGLWidget.updateflag = 1
+
+    def Displayinversematrixbuttonclicked(self):
+        if(self.inversematrixdeterminant != 0):
+            self.openGLWidget.matrix = copy.deepcopy(self.invmatrix)
+            self.openGLWidget.displayflag = 2
+            self.openGLWidget.updateflag = 1
 
 app = QtWidgets.QApplication(sys.argv)
 app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())

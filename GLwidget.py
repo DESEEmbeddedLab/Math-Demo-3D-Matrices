@@ -20,13 +20,8 @@ class openGLDisplay(QtWidgets.QOpenGLWidget):
         self.coordinateflag = 0
         self.displayflag = 1
         self.center = np.array([0.0, 0.0, 0.0])
-        self.resetfront = np.array([1.0 / math.sqrt(2), 0.0, 1.0 / math.sqrt(2)])
-        self.resetup = np.array([0.0, 1.0, 0.0])
-        up = self.resetup
-        self.resetup = up * math.cos(math.pi / 6) - self.resetfront * math.sin(math.pi / 6)
-        self.resetup /= np.linalg.norm(self.resetup)
-        self.resetfront = self.resetfront * math.cos(math.pi / 6) + up * math.sin(math.pi / 6)
-        self.resetfront /= np.linalg.norm(self.resetfront)
+        self.resetup = np.array([-0.35355339, 0.8660254, -0.35355339])
+        self.resetfront = np.array([0.61237244, 0.5, 0.61237244])
         self.front = self.resetfront
         self.up = self.resetup
         self.matrix = np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]])
@@ -71,204 +66,119 @@ class openGLDisplay(QtWidgets.QOpenGLWidget):
 
         GL.glLineWidth(2)
 
+    def paint_plane(self, p1, p2, p3, p4):
+        GL.glBegin(GL.GL_POLYGON)
+        GL.glVertex3fv(p1)
+        GL.glVertex3fv(p2)
+        GL.glVertex3fv(p3)
+        GL.glVertex3fv(p4)
+        GL.glEnd()
+
+    def paint_plane_border(self, p1, p2, p3, p4):
+        GL.glBegin(GL.GL_LINES)
+        GL.glVertex3fv(p1)
+        GL.glVertex3fv(p2)
+        GL.glVertex3fv(p2)
+        GL.glVertex3fv(p3)
+        GL.glVertex3fv(p3)
+        GL.glVertex3fv(p4)
+        GL.glVertex3fv(p4)
+        GL.glVertex3fv(p1)
+        GL.glEnd()
+
     def paint_matrix_lines(self, matrix, s = 10):
         x = matrix.dot(np.array([[1.0], [0.0], [0.0]]))
         y = matrix.dot(np.array([[0.0], [1.0], [0.0]]))
         z = matrix.dot(np.array([[0.0], [0.0], [1.0]]))
 
-        GL.glColor4f(0.5, 0.0, 0.5, 1)  
+        GL.glColor4f(0.75, 0.0, 0.0, 1)  
         GL.glBegin(GL.GL_LINES)
         for i in range(-s, s + 1):
             GL.glVertex3fv(i * y - x * s)
             GL.glVertex3fv(i * y + x * s)
-            GL.glVertex3fv(i * z - x * s)
-            GL.glVertex3fv(i * z + x * s)
-        GL.glEnd()
-
-        GL.glColor4f(0.0, 0.5, 0.5, 1)   
-        GL.glBegin(GL.GL_LINES)
-        for i in range(-s, s + 1):
             GL.glVertex3fv(i * x - y * s)
             GL.glVertex3fv(i * x + y * s)
-            GL.glVertex3fv(i * z - y * s)
-            GL.glVertex3fv(i * z + y * s)
-        GL.glEnd()        
+        GL.glEnd()
 
-        GL.glColor4f(0.5, 0.5, 0.0, 1)   
+        GL.glColor4f(0.0, 0.75, 0.0, 1)   
         GL.glBegin(GL.GL_LINES)
         for i in range(-s, s + 1):
-            GL.glVertex3fv(i * x - z * s)
-            GL.glVertex3fv(i * x + z * s)
+            GL.glVertex3fv(i * z - y * s)
+            GL.glVertex3fv(i * z + y * s)
             GL.glVertex3fv(i * y - z * s)
             GL.glVertex3fv(i * y + z * s)
         GL.glEnd()        
 
-    def paint_matrix_planes(self, matrix, s = 5.0, r = 0.5, g = 0.5, b = 0.5, d = 0.5):
-        x = matrix.dot(np.array([[1.0], [0.0], [0.0]]))
-        y = matrix.dot(np.array([[0.0], [1.0], [0.0]]))
-        z = matrix.dot(np.array([[0.0], [0.0], [1.0]]))
-
-        GL.glColor4f(r, g, b, d)   
-
-        GL.glBegin(GL.GL_POLYGON)
-        GL.glVertex3fv((x + y) * s)
-        GL.glVertex3fv((x - y) * s)
-        GL.glVertex3fv((-x - y) * s)
-        GL.glVertex3fv((-x + y) * s)
-        GL.glEnd()
-
-        GL.glBegin(GL.GL_POLYGON)
-        GL.glVertex3fv((x + z) * s)
-        GL.glVertex3fv((x - z) * s)
-        GL.glVertex3fv((-x - z) * s)
-        GL.glVertex3fv((-x + z) * s)
-        GL.glEnd()
-
-        GL.glBegin(GL.GL_POLYGON)
-        GL.glVertex3fv((y + z) * s)
-        GL.glVertex3fv((y - z) * s)
-        GL.glVertex3fv((-y - z) * s)
-        GL.glVertex3fv((-y + z) * s)
-        GL.glEnd()
-
-        GL.glColor4f(0, 0, 0, 1)   
-
+        GL.glColor4f(0.0, 0.0, 0.75, 1)   
         GL.glBegin(GL.GL_LINES)
-        GL.glVertex3fv((x + y) * s)
-        GL.glVertex3fv((x - y) * s)
-        GL.glVertex3fv((x - y) * s)
-        GL.glVertex3fv((-x - y) * s)
-        GL.glVertex3fv((-x - y) * s)
-        GL.glVertex3fv((-x + y) * s)
-        GL.glVertex3fv((-x + y) * s)
-        GL.glVertex3fv((x + y) * s)
-
-        GL.glVertex3fv((x + z) * s)
-        GL.glVertex3fv((x - z) * s)
-        GL.glVertex3fv((x - z) * s)
-        GL.glVertex3fv((-x - z) * s)
-        GL.glVertex3fv((-x - z) * s)
-        GL.glVertex3fv((-x + z) * s)
-        GL.glVertex3fv((-x + z) * s)
-        GL.glVertex3fv((x + z) * s)
-
-        GL.glVertex3fv((y + z) * s)
-        GL.glVertex3fv((y - z) * s)
-        GL.glVertex3fv((y - z) * s)
-        GL.glVertex3fv((-y - z) * s)
-        GL.glVertex3fv((-y - z) * s)
-        GL.glVertex3fv((-y + z) * s)
-        GL.glVertex3fv((-y + z) * s)
-        GL.glVertex3fv((y + z) * s)
+        for i in range(-s, s + 1):
+            GL.glVertex3fv(i * x - z * s)
+            GL.glVertex3fv(i * x + z * s)
+            GL.glVertex3fv(i * z - x * s)
+            GL.glVertex3fv(i * z + x * s)
         GL.glEnd()
 
-    def paint_matrix(self, matrix, r = 0.0, g = 0.0, b = 0.0, d = 0.5):
-        x = matrix.dot(np.array([[1.0], [0.0], [0.0]]))
-        y = matrix.dot(np.array([[0.0], [1.0], [0.0]]))
-        z = matrix.dot(np.array([[0.0], [0.0], [1.0]]))
+    def paint_matrix_planes(self, matrix, s = 5.0, d = 0.5):
+        x = matrix.dot(np.array([[1.0], [0.0], [0.0]])) * s
+        y = matrix.dot(np.array([[0.0], [1.0], [0.0]])) * s
+        z = matrix.dot(np.array([[0.0], [0.0], [1.0]])) * s
+        zero = np.array([[0.0], [0.0], [0.0]])
+        camera = self.center + self.front * 20 * self.zoom
 
-        GL.glColor4f(r, g, b, d)   
+        planes = []
+        planes.append([np.linalg.norm(camera - (x + y).T), x, y, 0.75, 0.0, 0.0])
+        planes.append([np.linalg.norm(camera - (x - y).T), x, -y, 0.75, 0.0, 0.0])
+        planes.append([np.linalg.norm(camera - (-x - y).T), -x, -y, 0.75, 0.0, 0.0])
+        planes.append([np.linalg.norm(camera - (-x + y).T), -x, y, 0.75, 0.0, 0.0])
 
-        GL.glBegin(GL.GL_POLYGON)
-        GL.glVertex3f(0, 0, 0)
-        GL.glVertex3fv(x)
-        GL.glVertex3fv(x + y)
-        GL.glVertex3fv(y)
-        GL.glEnd()
+        planes.append([np.linalg.norm(camera - (x + z).T), x, z, 0.0, 0.0, 0.75])
+        planes.append([np.linalg.norm(camera - (x - z).T), x, -z, 0.0, 0.0, 0.75])
+        planes.append([np.linalg.norm(camera - (-x - z).T), -x, -z, 0.0, 0.0, 0.75])
+        planes.append([np.linalg.norm(camera - (-x + z).T), -x, z, 0.0, 0.0, 0.75])
+
+        planes.append([np.linalg.norm(camera - (z + y).T), z, y, 0.0, 0.75, 0.0])
+        planes.append([np.linalg.norm(camera - (z - y).T), z, -y, 0.0, 0.75, 0.0])
+        planes.append([np.linalg.norm(camera - (-z - y).T), -z, -y, 0.0, 0.75, 0.0])
+        planes.append([np.linalg.norm(camera - (-z + y).T), -z, y, 0.0, 0.75, 0.0])
+        planes.sort(key = lambda x: x[0], reverse = True)
         
-        GL.glBegin(GL.GL_POLYGON)
-        GL.glVertex3fv(z)
-        GL.glVertex3fv(x + z)
-        GL.glVertex3fv(x + y + z)
-        GL.glVertex3fv(y + z)
-        GL.glEnd()
-
-        GL.glBegin(GL.GL_POLYGON)
-        GL.glVertex3f(0, 0, 0)
-        GL.glVertex3fv(y)
-        GL.glVertex3fv(y + z)
-        GL.glVertex3fv(z)
-        GL.glEnd()
-
-        GL.glBegin(GL.GL_POLYGON)
-        GL.glVertex3fv(x)
-        GL.glVertex3fv(y + x)
-        GL.glVertex3fv(y + z + x)
-        GL.glVertex3fv(z + x)
-        GL.glEnd()
-
-        GL.glBegin(GL.GL_POLYGON)
-        GL.glVertex3f(0, 0, 0)
-        GL.glVertex3fv(z)
-        GL.glVertex3fv(z + x)
-        GL.glVertex3fv(x)
-        GL.glEnd()
-
-        GL.glBegin(GL.GL_POLYGON)
-        GL.glVertex3fv(y)
-        GL.glVertex3fv(z + y)
-        GL.glVertex3fv(z + x + y)
-        GL.glVertex3fv(x + y)
-        GL.glEnd()
+        for plane in planes:
+            GL.glColor4f(plane[3], plane[4], plane[5], d)
+            self.paint_plane(plane[1], plane[1] + plane[2], plane[2], zero)
 
         GL.glColor4f(0, 0, 0, 1)
 
-        GL.glBegin(GL.GL_LINES)
-        GL.glVertex3f(0, 0, 0)
-        GL.glVertex3fv(x)
-        GL.glVertex3fv(x)
-        GL.glVertex3fv(x + y)
-        GL.glVertex3fv(x + y)
-        GL.glVertex3fv(y)
-        GL.glVertex3fv(y)
-        GL.glVertex3f(0, 0, 0)
+        self.paint_plane_border((x + y), (x - y), (-x - y), (-x + y))
+        self.paint_plane_border((x + z), (x - z), (-x - z), (-x + z))
+        self.paint_plane_border((y + z), (y - z), (-y - z), (-y + z))
 
-        GL.glVertex3fv(z)
-        GL.glVertex3fv(x + z)
-        GL.glVertex3fv(x + z)
-        GL.glVertex3fv(x + y + z)
-        GL.glVertex3fv(x + y + z)
-        GL.glVertex3fv(y + z)
-        GL.glVertex3fv(y + z)
-        GL.glVertex3fv(z)
+    def paint_matrix(self, matrix, r = 0.15, g = 0.15, b = 0.15, d = 0.5):
+        x = matrix.dot(np.array([[1.0], [0.0], [0.0]]))
+        y = matrix.dot(np.array([[0.0], [1.0], [0.0]]))
+        z = matrix.dot(np.array([[0.0], [0.0], [1.0]]))
+        zero = np.array([0, 0, 0])
 
-        GL.glVertex3f(0, 0, 0)
-        GL.glVertex3fv(y)
-        GL.glVertex3fv(y)
-        GL.glVertex3fv(y + z)
-        GL.glVertex3fv(y + z)
-        GL.glVertex3fv(z)
-        GL.glVertex3fv(z)
-        GL.glVertex3f(0, 0, 0)
+        GL.glColor4f(r, g, b, d)   
 
-        GL.glVertex3fv(x)
-        GL.glVertex3fv(y + x)
-        GL.glVertex3fv(y + x)
-        GL.glVertex3fv(y + z + x)
-        GL.glVertex3fv(y + z + x)
-        GL.glVertex3fv(z + x)
-        GL.glVertex3fv(z + x)
-        GL.glVertex3fv(x)
-        
-        GL.glVertex3f(0, 0, 0)
-        GL.glVertex3fv(z)
-        GL.glVertex3fv(z)
-        GL.glVertex3fv(z + x)
-        GL.glVertex3fv(z + x)
-        GL.glVertex3fv(x)
-        GL.glVertex3fv(x)
-        GL.glVertex3f(0, 0, 0)
+        self.paint_plane(zero, x, x + y, y)
+        self.paint_plane(z, x + z, x + y + z, y + z)
 
-        GL.glVertex3fv(y)
-        GL.glVertex3fv(z + y)
-        GL.glVertex3fv(z + y)
-        GL.glVertex3fv(z + x + y)
-        GL.glVertex3fv(z + x + y)
-        GL.glVertex3fv(x + y)
-        GL.glVertex3fv(x + y)
-        GL.glVertex3fv(y)
+        self.paint_plane(zero, y, y + z, z)
+        self.paint_plane(x, y + x, x + y + z, x + z)
 
-        GL.glEnd()
+        self.paint_plane(zero, z, x + z, x)
+        self.paint_plane(y, y + z, x + y + z, y + x)
+
+        GL.glColor4f(0, 0, 0, 1)
+
+        self.paint_plane_border(zero, x, x + y, y)
+        self.paint_plane_border(z, x + z, x + y + z, y + z)
+
+        self.paint_plane_border(zero, y, y + z, z)
+        self.paint_plane_border(x, y + x, x + y + z, x + z)
+
+        self.paint_plane_border(zero, z, x + z, x)
+        self.paint_plane_border(y, y + z, x + y + z, y + x)
 
     def paint_coordinates(self, x, y, z):
         GL.glColor4f(0, 0, 0, 1)
@@ -302,8 +212,12 @@ class openGLDisplay(QtWidgets.QOpenGLWidget):
             self.paint_vector(self.vector1)     
             GL.glDisable(GL.GL_LINE_STIPPLE)
             self.paint_vector(self.vector2) 
-            self.paint_matrix(self.matrix, 1, 0, 0)     
-            self.paint_matrix_planes(self.matrix)            
+            self.paint_matrix(self.matrix)     
+            self.paint_matrix_planes(self.matrix)  
+
+        elif(self.displayflag == 2):
+            self.paint_matrix(self.matrix)     
+            self.paint_matrix_planes(self.matrix)  
         
     def initializeGL(self):
         print("\033[4;30;102m INITIALIZE GL\033[0m")
@@ -331,6 +245,53 @@ class openGLDisplay(QtWidgets.QOpenGLWidget):
         cam_pos = self.center + self.front * 20 * self.zoom
         GLU.gluLookAt(cam_pos[0], cam_pos[1], cam_pos[2], self.center[0], self.center[1], self.center[2], self.up[0], self.up[1], self.up[2])
 
+    def rotatecamera(self, x , y):
+        if(abs(x) + abs(y) == 0):
+            return
+
+        right = np.cross(self.up, self.front)
+        rotatevector = (self.up * x + right * y) / (abs(x) + abs(y))
+        angle = math.sqrt(math.pow(x, 2) + math.pow(y, 2))
+
+        frontparallel = rotatevector.dot(self.front) * rotatevector
+        frontperp1 = self.front - frontparallel
+        if(np.linalg.norm(frontperp1) > 0):
+            frontperp2 = np.cross(frontperp1 / np.linalg.norm(frontperp1), rotatevector)
+            self.front = frontperp1 * math.cos(angle) + frontperp2 * math.sin(angle) * np.linalg.norm(frontperp1) + frontparallel
+            self.front /= np.linalg.norm(self.front)
+
+        upparallel = rotatevector.dot(self.up) * rotatevector
+        upperp1 = self.up - upparallel
+        if(np.linalg.norm(upperp1) > 0):
+            upperp2 = np.cross(upperp1 / np.linalg.norm(upperp1), rotatevector)
+            self.up = upperp1 * math.cos(angle) + upperp2 * math.sin(angle) * np.linalg.norm(upperp1) + upparallel
+            self.up /= np.linalg.norm(self.up)
+
+    def rotatecenter(self, x , y):
+        if(abs(x) + abs(y) == 0):
+            return
+
+        right = np.cross(self.up, self.front)
+        rotatevector = (self.up * x + right * y) / (abs(x) + abs(y))
+        angle = math.sqrt(math.pow(x, 2) + math.pow(y, 2))
+
+        frontparallel = rotatevector.dot(self.front) * rotatevector
+        frontperp1 = self.front - frontparallel
+        if(np.linalg.norm(frontperp1) > 0):
+            frontperp2 = np.cross(frontperp1 / np.linalg.norm(frontperp1), rotatevector)
+            front = frontperp1 * math.cos(angle) + frontperp2 * math.sin(angle) * np.linalg.norm(frontperp1) + frontparallel
+            front /= np.linalg.norm(self.front)
+            camera = self.center + self.front * 20 * self.zoom
+            self.center = camera - front * 20 * self.zoom
+            self.front = front
+
+        upparallel = rotatevector.dot(self.up) * rotatevector
+        upperp1 = self.up - upparallel
+        if(np.linalg.norm(upperp1) > 0):
+            upperp2 = np.cross(upperp1 / np.linalg.norm(upperp1), rotatevector)
+            self.up = upperp1 * math.cos(angle) + upperp2 * math.sin(angle) * np.linalg.norm(upperp1) + upparallel
+            self.up /= np.linalg.norm(self.up)
+
     def mousePressEvent(self, event):
         self.prev_x = event.x()
         self.prev_y = event.y()
@@ -343,22 +304,12 @@ class openGLDisplay(QtWidgets.QOpenGLWidget):
         self.updateflag = 1
 
     def mouseMoveEvent(self, event):
-        x = (self.prev_x - event.x()) * math.pi / 950.0
+        x = (event.x() - self.prev_x) * math.pi / 950.0
         y = (event.y() - self.prev_y) * math.pi / 950.0
 
-        up = self.up
-        self.up = up * math.cos(y) - self.front * math.sin(y)
-        self.up /= np.linalg.norm(self.up)
-        self.front = self.front * math.cos(y) + up * math.sin(y)
-        self.front /= np.linalg.norm(self.front)
-
-        right = np.cross(self.up, self.front)
-        self.front = self.front * math.cos(x) + right * math.sin(x)
-        self.front /= np.linalg.norm(self.front)
-
+        self.rotatecamera(x, y)
         self.prev_x = event.x()
         self.prev_y = event.y()
-
         self.updateflag = 1
 
     def wheelEvent(self, event):
