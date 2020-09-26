@@ -318,6 +318,8 @@ class openGLDisplay(QtWidgets.QOpenGLWidget):
         self.updateflag = 1
 
     def keyPressEvent(self, event):
+        super(openGLDisplay, self).keyPressEvent(event)
+
         x = 0
         if(event.key() == QtCore.Qt.Key_Left):
             x = -0.1
