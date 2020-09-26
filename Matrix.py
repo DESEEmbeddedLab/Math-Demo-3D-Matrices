@@ -58,6 +58,14 @@ class mainWindow(QtWidgets.QMainWindow):
         self.Rotationcalculatebutton = self.findChild(QtWidgets.QPushButton, 'Rotationcalculatebutton')        
         self.Rotationcalculatebutton.clicked.connect(self.Rotationcalculatebuttonclicked)
 
+        #Reflection
+        self.Reflectionvectorbox0 = self.findChild(QtWidgets.QDoubleSpinBox, 'Reflectionvectorbox0')
+        self.Reflectionvectorbox1 = self.findChild(QtWidgets.QDoubleSpinBox, 'Reflectionvectorbox1')
+        self.Reflectionvectorbox2 = self.findChild(QtWidgets.QDoubleSpinBox, 'Reflectionvectorbox2')
+
+        self.Reflectioncalculatebutton = self.findChild(QtWidgets.QPushButton, 'Reflectioncalculatebutton')        
+        self.Reflectioncalculatebutton.clicked.connect(self.Reflectioncalculatebuttonclicked)
+
         #Inverse
         self.Displayinversematrixbox00 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox00_2')
         self.Displayinversematrixbox01 = self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox01_2')
@@ -173,6 +181,8 @@ class mainWindow(QtWidgets.QMainWindow):
 
     def Rotationcalculatebuttonclicked(self):
         rotatevector = np.array([[self.Rotationvectorbox0.value()], [self.Rotationvectorbox1.value()], [self.Rotationvectorbox2.value()]])
+        if(np.linalg.norm(rotatevector) == 0):
+            return
         rotatevector /= np.linalg.norm(rotatevector)
         angle = self.Rotationanglebox.value() * math.pi / 180.0
 
@@ -196,6 +206,36 @@ class mainWindow(QtWidgets.QMainWindow):
         if(np.linalg.norm(z2) > 0):
             z3 = np.cross(z2.T / np.linalg.norm(z2), rotatevector.T).T
             z = z2 * math.cos(angle) + z3 * math.sin(angle) * np.linalg.norm(z2) + z1
+
+        self.matrix[0, 0] = x[0, 0]
+        self.matrix[0, 1] = y[0, 0]
+        self.matrix[0, 2] = z[0, 0]
+        self.matrix[1, 0] = x[1, 0]
+        self.matrix[1, 1] = y[1, 0]
+        self.matrix[1, 2] = z[1, 0]
+        self.matrix[2, 0] = x[2, 0]
+        self.matrix[2, 1] = y[2, 0]
+        self.matrix[2, 2] = z[2, 0]
+
+        self.Displaymatrix_0()
+
+    def Reflectioncalculatebuttonclicked(self):
+        reflectvector = np.array([[self.Reflectionvectorbox0.value()], [self.Reflectionvectorbox1.value()], [self.Reflectionvectorbox2.value()]])
+        if(np.linalg.norm(reflectvector) == 0):
+            return
+        reflectvector /= np.linalg.norm(reflectvector)
+
+        x = np.array([[1.0], [0.0], [0.0]])
+        x1 = reflectvector.T.dot(x) * reflectvector
+        x = x - 2 * x1
+
+        y = np.array([[0.0], [1.0], [0.0]])
+        y1 = reflectvector.T.dot(y) * reflectvector
+        y = y - 2 * y1
+
+        z = np.array([[0.0], [0.0], [1.0]])
+        z1 = reflectvector.T.dot(z) * reflectvector
+        z = z - 2 * z1
 
         self.matrix[0, 0] = x[0, 0]
         self.matrix[0, 1] = y[0, 0]
