@@ -36,7 +36,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="MatrixDisp">
      <attribute name="title">
@@ -935,17 +935,17 @@
           <x>10</x>
           <y>10</y>
           <width>430</width>
-          <height>740</height>
+          <height>820</height>
          </rect>
         </property>
         <property name="title">
          <string>Cramer's Rule</string>
         </property>
-        <widget class="QPushButton" name="Displaycramersmatrixbutton">
+        <widget class="QPushButton" name="Displaycramers3matrixbutton">
          <property name="geometry">
           <rect>
            <x>280</x>
-           <y>710</y>
+           <y>690</y>
            <width>99</width>
            <height>27</height>
           </rect>
@@ -1198,6 +1198,32 @@
            <double>10.000000000000000</double>
           </property>
          </widget>
+         <widget class="QPushButton" name="Matrixpaste_3">
+          <property name="geometry">
+           <rect>
+            <x>5</x>
+            <y>65</y>
+            <width>30</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>P</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Matrixcopy_4">
+          <property name="geometry">
+           <rect>
+            <x>5</x>
+            <y>35</y>
+            <width>30</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>C</string>
+          </property>
+         </widget>
         </widget>
         <widget class="QFrame" name="Vectorframe_2">
          <property name="geometry">
@@ -1227,7 +1253,7 @@
            <string>b</string>
           </property>
          </widget>
-         <widget class="QDoubleSpinBox" name="Vectorxdisplaybox0_3">
+         <widget class="QDoubleSpinBox" name="Vectorbdisplaybox0">
           <property name="geometry">
            <rect>
             <x>105</x>
@@ -1246,7 +1272,7 @@
            <double>10.000000000000000</double>
           </property>
          </widget>
-         <widget class="QDoubleSpinBox" name="Vectorxdisplaybox1_3">
+         <widget class="QDoubleSpinBox" name="Vectorbdisplaybox1">
           <property name="geometry">
            <rect>
             <x>105</x>
@@ -1265,7 +1291,7 @@
            <double>10.000000000000000</double>
           </property>
          </widget>
-         <widget class="QDoubleSpinBox" name="Vectorxdisplaybox2_3">
+         <widget class="QDoubleSpinBox" name="Vectorbdisplaybox2">
           <property name="geometry">
            <rect>
             <x>105</x>
@@ -1511,12 +1537,25 @@
            <double>10.000000000000000</double>
           </property>
          </widget>
+         <widget class="QPushButton" name="Matrixcopy_5">
+          <property name="geometry">
+           <rect>
+            <x>5</x>
+            <y>35</y>
+            <width>30</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>C</string>
+          </property>
+         </widget>
         </widget>
         <widget class="QFrame" name="Matrixframe_6">
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>410</y>
+           <y>450</y>
            <width>410</width>
            <height>95</height>
           </rect>
@@ -1738,12 +1777,25 @@
            <double>10.000000000000000</double>
           </property>
          </widget>
+         <widget class="QPushButton" name="Matrixcopy_6">
+          <property name="geometry">
+           <rect>
+            <x>5</x>
+            <y>35</y>
+            <width>30</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>C</string>
+          </property>
+         </widget>
         </widget>
         <widget class="QFrame" name="Vectorframe_3">
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>610</y>
+           <y>720</y>
            <width>210</width>
            <height>95</height>
           </rect>
@@ -1767,7 +1819,7 @@
            <string>x</string>
           </property>
          </widget>
-         <widget class="QDoubleSpinBox" name="Vectorxdisplaybox0_4">
+         <widget class="QDoubleSpinBox" name="Vectorxcramdisplaybox0">
           <property name="geometry">
            <rect>
             <x>105</x>
@@ -1789,7 +1841,7 @@
            <double>10.000000000000000</double>
           </property>
          </widget>
-         <widget class="QDoubleSpinBox" name="Vectorxdisplaybox1_4">
+         <widget class="QDoubleSpinBox" name="Vectorxcramdisplaybox1">
           <property name="geometry">
            <rect>
             <x>105</x>
@@ -1811,7 +1863,7 @@
            <double>10.000000000000000</double>
           </property>
          </widget>
-         <widget class="QDoubleSpinBox" name="Vectorxdisplaybox2_4">
+         <widget class="QDoubleSpinBox" name="Vectorxcramdisplaybox2">
           <property name="geometry">
            <rect>
             <x>105</x>
@@ -1838,7 +1890,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>510</y>
+           <y>590</y>
            <width>410</width>
            <height>95</height>
           </rect>
@@ -2060,6 +2112,45 @@
            <double>10.000000000000000</double>
           </property>
          </widget>
+         <widget class="QPushButton" name="Matrixcopy_7">
+          <property name="geometry">
+           <rect>
+            <x>5</x>
+            <y>35</y>
+            <width>30</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>C</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QPushButton" name="Displaycramers2matrixbutton">
+         <property name="geometry">
+          <rect>
+           <x>280</x>
+           <y>550</y>
+           <width>99</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Display</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="Displaycramers1matrixbutton">
+         <property name="geometry">
+          <rect>
+           <x>280</x>
+           <y>410</y>
+           <width>99</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Display</string>
+         </property>
         </widget>
        </widget>
       </widget>
