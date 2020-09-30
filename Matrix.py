@@ -2,7 +2,7 @@ from OpenGL import GL, GLU, GLUT
 
 from PyQt5 import QtCore, QtWidgets, uic
 
-import qdarkstyle
+import qdarkstyle, qdarkgraystyle
 
 import traceback, sys, os, shutil, math, copy
 
@@ -63,11 +63,14 @@ class mainWindow(QtWidgets.QMainWindow):
 
         self.Rotationanglebox = self.findChild(QtWidgets.QDoubleSpinBox, 'Rotationanglebox')
 
-        self.Rotationapplybutton = self.findChild(QtWidgets.QPushButton, 'Rotationapplybutton')        
-        self.Rotationapplybutton.clicked.connect(self.Rotationapplybuttonclicked)
+        self.Rotationxybox = self.findChild(QtWidgets.QDoubleSpinBox, 'Rotationxybox')
+        self.Rotationzxbox = self.findChild(QtWidgets.QDoubleSpinBox, 'Rotationzxbox')
+        self.Rotationyzbox = self.findChild(QtWidgets.QDoubleSpinBox, 'Rotationyzbox')
 
-        self.Rotationcalculatebutton = self.findChild(QtWidgets.QPushButton, 'Rotationcalculatebutton')        
-        self.Rotationcalculatebutton.clicked.connect(self.Rotationcalculatebuttonclicked)
+        self.Rotationquatapplybutton = self.findChild(QtWidgets.QPushButton, 'Rotationquatapplybutton')        
+        self.Rotationquatapplybutton.clicked.connect(self.Rotationquatapplybuttonclicked)
+        self.Rotationquatcalculatebutton = self.findChild(QtWidgets.QPushButton, 'Rotationquatcalculatebutton')        
+        self.Rotationquatcalculatebutton.clicked.connect(self.Rotationquatcalculatebuttonclicked)
 
         #Reflection
         self.Reflectionvectorbox0 = self.findChild(QtWidgets.QDoubleSpinBox, 'Reflectionvectorbox0')
@@ -203,11 +206,86 @@ class mainWindow(QtWidgets.QMainWindow):
         self.Displaycramers3matrixbutton.setDisabled(True)
         self.Displaycramers3matrixbutton.clicked.connect(self.Displaycramers3matrixbuttonclicked)
 
+        #SVD
+        self.Displaysvdmatrixbox = []
+        self.Displaysvdmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox00_10'))
+        self.Displaysvdmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox01_10'))
+        self.Displaysvdmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox02_10'))
+        self.Displaysvdmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox10_10'))
+        self.Displaysvdmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox11_10'))
+        self.Displaysvdmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox12_10'))
+        self.Displaysvdmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox20_10'))
+        self.Displaysvdmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox21_10'))
+        self.Displaysvdmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox22_10'))
+
+        self.Matrixcopy_8 = self.findChild(QtWidgets.QPushButton, 'Matrixcopy_8')
+        self.Matrixcopy_8.clicked.connect(self.Matrixcopy_8clicked)
+        self.Matrixpaste_4 = self.findChild(QtWidgets.QPushButton, 'Matrixpaste_4')
+        self.Matrixpaste_4.clicked.connect(self.Matrixpaste_4clicked)
+        
+        self.Displayumatrixbox = []
+        self.Displayumatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox00_11'))
+        self.Displayumatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox01_11'))
+        self.Displayumatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox02_11'))
+        self.Displayumatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox10_11'))
+        self.Displayumatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox11_11'))
+        self.Displayumatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox12_11'))
+        self.Displayumatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox20_11'))
+        self.Displayumatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox21_11'))
+        self.Displayumatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox22_11'))
+
+        self.Matrixcopy_9 = self.findChild(QtWidgets.QPushButton, 'Matrixcopy_9')
+        self.Matrixcopy_9.clicked.connect(self.Matrixcopy_9clicked)
+
+        self.Displaysmatrixbox = []
+        self.Displaysmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox00_12'))
+        self.Displaysmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox01_12'))
+        self.Displaysmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox02_12'))
+        self.Displaysmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox10_12'))
+        self.Displaysmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox11_12'))
+        self.Displaysmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox12_12'))
+        self.Displaysmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox20_12'))
+        self.Displaysmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox21_12'))
+        self.Displaysmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox22_12'))
+
+        self.Matrixcopy_10 = self.findChild(QtWidgets.QPushButton, 'Matrixcopy_10')
+        self.Matrixcopy_10.clicked.connect(self.Matrixcopy_10clicked)
+
+        self.Displayvmatrixbox = []
+        self.Displayvmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox00_13'))
+        self.Displayvmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox01_13'))
+        self.Displayvmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox02_13'))
+        self.Displayvmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox10_13'))
+        self.Displayvmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox11_13'))
+        self.Displayvmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox12_13'))
+        self.Displayvmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox20_13'))
+        self.Displayvmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox21_13'))
+        self.Displayvmatrixbox.append(self.findChild(QtWidgets.QDoubleSpinBox, 'Displaymatrixbox22_13'))
+
+        self.Matrixcopy_11 = self.findChild(QtWidgets.QPushButton, 'Matrixcopy_11')
+        self.Matrixcopy_11.clicked.connect(self.Matrixcopy_11clicked)
+
+        self.Calculatesvdbutton = self.findChild(QtWidgets.QPushButton, 'Calculatesvdbutton')
+        self.Calculatesvdbutton.clicked.connect(self.Calculatesvdbuttonclicked)
+        self.Animatesvdbutton = self.findChild(QtWidgets.QPushButton, 'Animatesvdbutton')
+        self.Animatesvdbutton.clicked.connect(self.Animatesvdbuttonclicked)
+        self.Animatesvdbutton.setDisabled(True)
+        
+        self.Displayumatrixbutton = self.findChild(QtWidgets.QPushButton, 'Displayumatrixbutton')
+        self.Displayumatrixbutton.clicked.connect(self.Displayumatrixbuttonclicked)
+        self.Displayumatrixbutton.setDisabled(True)
+        self.Displaysmatrixbutton = self.findChild(QtWidgets.QPushButton, 'Displaysmatrixbutton')
+        self.Displaysmatrixbutton.clicked.connect(self.Displaysmatrixbuttonclicked)
+        self.Displaysmatrixbutton.setDisabled(True)
+        self.Displayvmatrixbutton = self.findChild(QtWidgets.QPushButton, 'Displayvmatrixbutton')
+        self.Displayvmatrixbutton.clicked.connect(self.Displayvmatrixbuttonclicked)
+        self.Displayvmatrixbutton.setDisabled(True)
+
     def setupUI(self):
         print("\033[1;101m SETUP UI \033[0m")
 
         self.openGLWidget = GLwidget.openGLDisplay(self.centralwidget)
-        self.openGLWidget.setGeometry(QtCore.QRect(0, 0, 1200, 950))
+        self.openGLWidget.setGeometry(QtCore.QRect(15, 15, 1200, 950))
         self.openGLWidget.setObjectName("openGLWidget")
 
         self.windowsHeight = self.openGLWidget.height()
@@ -228,6 +306,8 @@ class mainWindow(QtWidgets.QMainWindow):
         self.cram1matrix = np.array([[2.0, 0.0, 0.0], [0.0, 2.0, 0.0], [0.0, 0.0, 2.0]])
         self.cram2matrix = np.array([[2.0, 0.0, 0.0], [0.0, 2.0, 0.0], [0.0, 0.0, 2.0]])
         self.cram3matrix = np.array([[2.0, 0.0, 0.0], [0.0, 2.0, 0.0], [0.0, 0.0, 2.0]])
+
+        self.svdmatrix = np.array([[2.0, 0.0, 0.0], [0.0, 2.0, 0.0], [0.0, 0.0, 2.0]])
 
         self.Displaymatrix_0()
         self.Displaymatrixeigen()
@@ -310,10 +390,10 @@ class mainWindow(QtWidgets.QMainWindow):
         self.openGLWidget.displayflag = 1
         self.openGLWidget.updateflag = 1
 
-    def Rotationcalculate(self):
+    def Rotationquatcalculate(self):
         rotatevector = np.array([[self.Rotationvectorbox0.value()], [self.Rotationvectorbox1.value()], [self.Rotationvectorbox2.value()]])
         if(np.linalg.norm(rotatevector) == 0):
-            return
+            return np.identity(3)
         rotatevector /= np.linalg.norm(rotatevector)
         angle = self.Rotationanglebox.value() * math.pi / 180.0
 
@@ -351,12 +431,24 @@ class mainWindow(QtWidgets.QMainWindow):
 
         return matrix
 
-    def Rotationcalculatebuttonclicked(self):
-        self.matrix = self.Rotationcalculate()
+    def Rotationquatcalculatebuttonclicked(self):
+        self.matrix = self.Rotationquatcalculate()
+        theta = -math.asin(-self.matrix[2, 0])
+        phi = -math.asin(self.matrix[2, 1] / math.cos(theta))
+        psi = -math.asin(self.matrix[1, 0] / math.cos(theta))
+        self.Rotationxybox.setValue(psi * 180 / math.pi)
+        self.Rotationzxbox.setValue(theta * 180 / math.pi)
+        self.Rotationyzbox.setValue(phi * 180 / math.pi)
         self.Displaymatrix_0()
 
-    def Rotationapplybuttonclicked(self):
-        matrix = self.Rotationcalculate()
+    def Rotationquatapplybuttonclicked(self):
+        matrix = self.Rotationquatcalculate()
+        theta = -math.asin(-matrix[2, 0])
+        phi = -math.asin(matrix[2, 1] / math.cos(theta))
+        psi = -math.asin(matrix[1, 0] / math.cos(theta))
+        self.Rotationxybox.setValue(psi * 180 / math.pi)
+        self.Rotationzxbox.setValue(theta * 180 / math.pi)
+        self.Rotationyzbox.setValue(phi * 180 / math.pi)
         self.Matrixset(self.matrix, self.Displaymatrixbox)
         self.matrix = self.matrix.dot(matrix)
         self.Displaymatrix_0()
@@ -364,7 +456,7 @@ class mainWindow(QtWidgets.QMainWindow):
     def Reflectioncalculate(self):
         reflectvector = np.array([[self.Reflectionvectorbox0.value()], [self.Reflectionvectorbox1.value()], [self.Reflectionvectorbox2.value()]])
         if(np.linalg.norm(reflectvector) == 0):
-            return
+            return np.identity(3)
         reflectvector /= np.linalg.norm(reflectvector)
 
         x = np.array([[1.0], [0.0], [0.0]])
@@ -501,8 +593,73 @@ class mainWindow(QtWidgets.QMainWindow):
     def Matrixcopy_7clicked(self):
         self.Matrixset(self.matrixbuffer, self.Displaycram3matrixbox)
 
+    def Calculatesvdbuttonclicked(self):
+        self.Matrixset(self.svdmatrix, self.Displaysvdmatrixbox)
+        u, s, v = np.linalg.svd(self.svdmatrix)
+        I = np.identity(3)
+        I[0, 0] = s[0]
+        I[1, 1] = s[1]
+        I[2, 2] = s[2]
+        s = I
+        v = v.T
+        self.Displayset(u, self.Displayumatrixbox)
+        self.Displayset(s, self.Displaysmatrixbox)
+        self.Displayset(v, self.Displayvmatrixbox)
+        self.umatrix = u
+        self.vmatrix = v
+        self.smatrix = s
+        #print(u.dot(s.dot(v.T)))
+
+        self.Animatesvdbutton.setDisabled(False)
+        self.Displayumatrixbutton.setDisabled(False)
+        self.Displaysmatrixbutton.setDisabled(False)
+        self.Displayvmatrixbutton.setDisabled(False)
+        self.openGLWidget.matrix = self.svdmatrix
+        self.openGLWidget.displayflag = 2
+        self.openGLWidget.updateflag = 1
+
+    def Animatesvdbuttonclicked(self):
+        self.openGLWidget.matrix = self.svdmatrix
+        self.openGLWidget.umatrix = self.umatrix
+        self.openGLWidget.smatrix = self.smatrix
+        self.openGLWidget.vmatrix = self.vmatrix
+
+        self.openGLWidget.framecount = 0
+        self.openGLWidget.displayflag = 3
+        self.openGLWidget.updateflag = 1
+
+    def Displayumatrixbuttonclicked(self):
+        self.openGLWidget.matrix = self.umatrix
+        self.openGLWidget.displayflag = 2
+        self.openGLWidget.updateflag = 1
+
+    def Displaysmatrixbuttonclicked(self):
+        self.openGLWidget.matrix = self.smatrix
+        self.openGLWidget.displayflag = 2
+        self.openGLWidget.updateflag = 1
+
+    def Displayvmatrixbuttonclicked(self):
+        self.openGLWidget.matrix = self.vmatrix
+        self.openGLWidget.displayflag = 2
+        self.openGLWidget.updateflag = 1
+
+    def Matrixcopy_8clicked(self):
+        self.Matrixset(self.matrixbuffer, self.Displaysvdmatrixbox)
+
+    def Matrixpaste_4clicked(self):
+        self.Displayset(self.matrixbuffer, self.Displaysvdmatrixbox)
+
+    def Matrixcopy_9clicked(self):
+        self.Matrixset(self.matrixbuffer, self.Displayumatrixbox)
+
+    def Matrixcopy_10clicked(self):
+        self.Matrixset(self.matrixbuffer, self.Displaysmatrixbox)
+
+    def Matrixcopy_11clicked(self):
+        self.Matrixset(self.matrixbuffer, self.Displayvmatrixbox)
+
 app = QtWidgets.QApplication(sys.argv)
-app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+app.setStyleSheet(qdarkgraystyle.load_stylesheet_pyqt5())
 window = mainWindow()
 window.setupUI()
 window.show()

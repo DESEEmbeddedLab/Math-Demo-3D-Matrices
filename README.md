@@ -46,6 +46,12 @@ qdarkstyle
 pip3 install qdarkstyle
 ```
 
+qdarkgraystyle
+
+```
+pip3 install qdarkgraystyle
+```
+
 ## Usage
 
 Run the GUI using 

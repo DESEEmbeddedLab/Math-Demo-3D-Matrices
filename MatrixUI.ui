@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1700</width>
-    <height>975</height>
+    <height>990</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,7 +19,7 @@
   <property name="maximumSize">
    <size>
     <width>1700</width>
-    <height>975</height>
+    <height>990</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -30,13 +30,13 @@
     <property name="geometry">
      <rect>
       <x>1225</x>
-      <y>0</y>
+      <y>15</y>
       <width>470</width>
       <height>950</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="MatrixDisp">
      <attribute name="title">
@@ -64,7 +64,7 @@
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>0</y>
+         <y>-126</y>
          <width>440</width>
          <height>1150</height>
         </rect>
@@ -256,7 +256,7 @@
         <widget class="QFrame" name="Matrixframe">
          <property name="geometry">
           <rect>
-           <x>10</x>
+           <x>5</x>
            <y>30</y>
            <width>410</width>
            <height>95</height>
@@ -455,7 +455,7 @@
          <widget class="QPushButton" name="Matrixcopy">
           <property name="geometry">
            <rect>
-            <x>5</x>
+            <x>20</x>
             <y>35</y>
             <width>30</width>
             <height>27</height>
@@ -468,7 +468,7 @@
          <widget class="QPushButton" name="Matrixpaste">
           <property name="geometry">
            <rect>
-            <x>5</x>
+            <x>20</x>
             <y>65</y>
             <width>30</width>
             <height>27</height>
@@ -482,7 +482,7 @@
         <widget class="QFrame" name="Vectorframe">
          <property name="geometry">
           <rect>
-           <x>10</x>
+           <x>5</x>
            <y>130</y>
            <width>210</width>
            <height>95</height>
@@ -616,7 +616,7 @@
         <widget class="QFrame" name="Rotationvectorframe">
          <property name="geometry">
           <rect>
-           <x>25</x>
+           <x>5</x>
            <y>30</y>
            <width>210</width>
            <height>95</height>
@@ -702,7 +702,7 @@
         <widget class="QDoubleSpinBox" name="Rotationanglebox">
          <property name="geometry">
           <rect>
-           <x>130</x>
+           <x>110</x>
            <y>130</y>
            <width>100</width>
            <height>27</height>
@@ -712,10 +712,10 @@
           <number>4</number>
          </property>
          <property name="minimum">
-          <double>0.000000000000000</double>
+          <double>-90.000000000000000</double>
          </property>
          <property name="maximum">
-          <double>180.000000000000000</double>
+          <double>90.000000000000000</double>
          </property>
          <property name="singleStep">
           <double>5.000000000000000</double>
@@ -727,7 +727,7 @@
         <widget class="QLabel" name="Rotationanglelabel">
          <property name="geometry">
           <rect>
-           <x>30</x>
+           <x>10</x>
            <y>130</y>
            <width>90</width>
            <height>27</height>
@@ -737,7 +737,7 @@
           <string>Angle</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="Rotationcalculatebutton">
+        <widget class="QPushButton" name="Rotationquatcalculatebutton">
          <property name="geometry">
           <rect>
            <x>280</x>
@@ -750,10 +750,10 @@
           <string>Calculate</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="Rotationapplybutton">
+        <widget class="QPushButton" name="Rotationquatapplybutton">
          <property name="geometry">
           <rect>
-           <x>80</x>
+           <x>60</x>
            <y>170</y>
            <width>99</width>
            <height>27</height>
@@ -763,12 +763,135 @@
           <string>Apply</string>
          </property>
         </widget>
+        <widget class="QDoubleSpinBox" name="Rotationxybox">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>35</y>
+           <width>100</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="decimals">
+          <number>4</number>
+         </property>
+         <property name="minimum">
+          <double>-90.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>90.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>5.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.000000000000000</double>
+         </property>
+        </widget>
+        <widget class="QLabel" name="Rotationxylabel">
+         <property name="geometry">
+          <rect>
+           <x>230</x>
+           <y>35</y>
+           <width>70</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>X-Y</string>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="Rotationzxbox">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>65</y>
+           <width>100</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="decimals">
+          <number>4</number>
+         </property>
+         <property name="minimum">
+          <double>-90.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>90.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>5.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.000000000000000</double>
+         </property>
+        </widget>
+        <widget class="QLabel" name="Rotationzxlabel">
+         <property name="geometry">
+          <rect>
+           <x>230</x>
+           <y>65</y>
+           <width>70</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Z-X</string>
+         </property>
+        </widget>
+        <widget class="QDoubleSpinBox" name="Rotationyzbox">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>95</y>
+           <width>100</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="decimals">
+          <number>4</number>
+         </property>
+         <property name="minimum">
+          <double>-90.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>90.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>5.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.000000000000000</double>
+         </property>
+        </widget>
+        <widget class="QLabel" name="Rotationyzlabel">
+         <property name="geometry">
+          <rect>
+           <x>230</x>
+           <y>95</y>
+           <width>70</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Y-Z</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QGroupBox" name="Reflectionmatrix">
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>875</y>
+          <y>870</y>
           <width>430</width>
           <height>175</height>
          </rect>
@@ -779,7 +902,7 @@
         <widget class="QFrame" name="Reflectionvectorframe">
          <property name="geometry">
           <rect>
-           <x>25</x>
+           <x>5</x>
            <y>30</y>
            <width>210</width>
            <height>95</height>
@@ -878,7 +1001,7 @@
         <widget class="QPushButton" name="Reflectionapplybutton">
          <property name="geometry">
           <rect>
-           <x>80</x>
+           <x>60</x>
            <y>140</y>
            <width>99</width>
            <height>27</height>
@@ -978,6 +1101,9 @@
          </property>
          <property name="readOnly">
           <bool>true</bool>
+         </property>
+         <property name="decimals">
+          <number>4</number>
          </property>
          <property name="minimum">
           <double>-10.000000000000000</double>
@@ -1201,7 +1327,7 @@
          <widget class="QPushButton" name="Matrixpaste_3">
           <property name="geometry">
            <rect>
-            <x>5</x>
+            <x>20</x>
             <y>65</y>
             <width>30</width>
             <height>27</height>
@@ -1214,7 +1340,7 @@
          <widget class="QPushButton" name="Matrixcopy_4">
           <property name="geometry">
            <rect>
-            <x>5</x>
+            <x>20</x>
             <y>35</y>
             <width>30</width>
             <height>27</height>
@@ -1540,7 +1666,7 @@
          <widget class="QPushButton" name="Matrixcopy_5">
           <property name="geometry">
            <rect>
-            <x>5</x>
+            <x>20</x>
             <y>35</y>
             <width>30</width>
             <height>27</height>
@@ -1780,7 +1906,7 @@
          <widget class="QPushButton" name="Matrixcopy_6">
           <property name="geometry">
            <rect>
-            <x>5</x>
+            <x>20</x>
             <y>35</y>
             <width>30</width>
             <height>27</height>
@@ -2115,7 +2241,7 @@
          <widget class="QPushButton" name="Matrixcopy_7">
           <property name="geometry">
            <rect>
-            <x>5</x>
+            <x>20</x>
             <y>35</y>
             <width>30</width>
             <height>27</height>
@@ -2199,7 +2325,7 @@
           <x>10</x>
           <y>10</y>
           <width>430</width>
-          <height>360</height>
+          <height>365</height>
          </rect>
         </property>
         <property name="title">
@@ -2482,7 +2608,7 @@
          <widget class="QPushButton" name="Matrixcopy_3">
           <property name="geometry">
            <rect>
-            <x>5</x>
+            <x>20</x>
             <y>35</y>
             <width>30</width>
             <height>27</height>
@@ -2695,7 +2821,7 @@
          <widget class="QPushButton" name="Matrixpaste_2">
           <property name="geometry">
            <rect>
-            <x>5</x>
+            <x>20</x>
             <y>65</y>
             <width>30</width>
             <height>27</height>
@@ -2708,7 +2834,7 @@
          <widget class="QPushButton" name="Matrixcopy_2">
           <property name="geometry">
            <rect>
-            <x>5</x>
+            <x>20</x>
             <y>35</y>
             <width>30</width>
             <height>27</height>
@@ -2731,6 +2857,1083 @@
          <property name="text">
           <string>Calculate</string>
          </property>
+        </widget>
+       </widget>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="SVD">
+     <attribute name="title">
+      <string>SVD</string>
+     </attribute>
+     <widget class="QScrollArea" name="scrollArea_4">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>465</width>
+        <height>915</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="widgetResizable">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents_4">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>440</width>
+         <height>900</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <widget class="QGroupBox" name="Matrixinversebox_3">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>430</width>
+          <height>180</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>SVD</string>
+        </property>
+        <widget class="QPushButton" name="Calculatesvdbutton">
+         <property name="geometry">
+          <rect>
+           <x>280</x>
+           <y>140</y>
+           <width>99</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Calculate</string>
+         </property>
+        </widget>
+        <widget class="QFrame" name="Matrixframe_8">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>30</y>
+           <width>410</width>
+           <height>95</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox02_10">
+          <property name="geometry">
+           <rect>
+            <x>305</x>
+            <y>5</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox01_10">
+          <property name="geometry">
+           <rect>
+            <x>205</x>
+            <y>5</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox22_10">
+          <property name="geometry">
+           <rect>
+            <x>305</x>
+            <y>65</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox00_10">
+          <property name="geometry">
+           <rect>
+            <x>105</x>
+            <y>5</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox10_10">
+          <property name="geometry">
+           <rect>
+            <x>105</x>
+            <y>35</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox12_10">
+          <property name="geometry">
+           <rect>
+            <x>305</x>
+            <y>35</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox11_10">
+          <property name="geometry">
+           <rect>
+            <x>205</x>
+            <y>35</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox20_10">
+          <property name="geometry">
+           <rect>
+            <x>105</x>
+            <y>65</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QLabel" name="MatrixLabel_10">
+          <property name="geometry">
+           <rect>
+            <x>5</x>
+            <y>5</y>
+            <width>95</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>A</string>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox21_10">
+          <property name="geometry">
+           <rect>
+            <x>205</x>
+            <y>65</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Matrixpaste_4">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>65</y>
+            <width>30</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>P</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Matrixcopy_8">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>35</y>
+            <width>30</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>C</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QPushButton" name="Animatesvdbutton">
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>140</y>
+           <width>99</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Animate</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>190</y>
+          <width>430</width>
+          <height>450</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Display</string>
+        </property>
+        <widget class="QFrame" name="Matrixframe_9">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>30</y>
+           <width>410</width>
+           <height>95</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox02_11">
+          <property name="geometry">
+           <rect>
+            <x>305</x>
+            <y>5</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox01_11">
+          <property name="geometry">
+           <rect>
+            <x>205</x>
+            <y>5</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox22_11">
+          <property name="geometry">
+           <rect>
+            <x>305</x>
+            <y>65</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox00_11">
+          <property name="geometry">
+           <rect>
+            <x>105</x>
+            <y>5</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox10_11">
+          <property name="geometry">
+           <rect>
+            <x>105</x>
+            <y>35</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox12_11">
+          <property name="geometry">
+           <rect>
+            <x>305</x>
+            <y>35</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox11_11">
+          <property name="geometry">
+           <rect>
+            <x>205</x>
+            <y>35</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox20_11">
+          <property name="geometry">
+           <rect>
+            <x>105</x>
+            <y>65</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QLabel" name="MatrixLabel_11">
+          <property name="geometry">
+           <rect>
+            <x>5</x>
+            <y>5</y>
+            <width>95</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>U</string>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox21_11">
+          <property name="geometry">
+           <rect>
+            <x>205</x>
+            <y>65</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Matrixcopy_9">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>35</y>
+            <width>30</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>C</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QPushButton" name="Displaysmatrixbutton">
+         <property name="geometry">
+          <rect>
+           <x>280</x>
+           <y>270</y>
+           <width>99</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Display</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="Displayvmatrixbutton">
+         <property name="geometry">
+          <rect>
+           <x>280</x>
+           <y>410</y>
+           <width>99</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Display</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="Displayumatrixbutton">
+         <property name="geometry">
+          <rect>
+           <x>280</x>
+           <y>130</y>
+           <width>99</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Display</string>
+         </property>
+        </widget>
+        <widget class="QFrame" name="Matrixframe_11">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>310</y>
+           <width>410</width>
+           <height>95</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox02_13">
+          <property name="geometry">
+           <rect>
+            <x>305</x>
+            <y>5</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox01_13">
+          <property name="geometry">
+           <rect>
+            <x>205</x>
+            <y>5</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox22_13">
+          <property name="geometry">
+           <rect>
+            <x>305</x>
+            <y>65</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox00_13">
+          <property name="geometry">
+           <rect>
+            <x>105</x>
+            <y>5</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox10_13">
+          <property name="geometry">
+           <rect>
+            <x>105</x>
+            <y>35</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox12_13">
+          <property name="geometry">
+           <rect>
+            <x>305</x>
+            <y>35</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox11_13">
+          <property name="geometry">
+           <rect>
+            <x>205</x>
+            <y>35</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox20_13">
+          <property name="geometry">
+           <rect>
+            <x>105</x>
+            <y>65</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QLabel" name="MatrixLabel_13">
+          <property name="geometry">
+           <rect>
+            <x>5</x>
+            <y>5</y>
+            <width>95</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>V</string>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox21_13">
+          <property name="geometry">
+           <rect>
+            <x>205</x>
+            <y>65</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Matrixcopy_11">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>35</y>
+            <width>30</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>C</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QFrame" name="Matrixframe_10">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>170</y>
+           <width>410</width>
+           <height>95</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox02_12">
+          <property name="geometry">
+           <rect>
+            <x>305</x>
+            <y>5</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox01_12">
+          <property name="geometry">
+           <rect>
+            <x>205</x>
+            <y>5</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox22_12">
+          <property name="geometry">
+           <rect>
+            <x>305</x>
+            <y>65</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox00_12">
+          <property name="geometry">
+           <rect>
+            <x>105</x>
+            <y>5</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox10_12">
+          <property name="geometry">
+           <rect>
+            <x>105</x>
+            <y>35</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox12_12">
+          <property name="geometry">
+           <rect>
+            <x>305</x>
+            <y>35</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox11_12">
+          <property name="geometry">
+           <rect>
+            <x>205</x>
+            <y>35</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox20_12">
+          <property name="geometry">
+           <rect>
+            <x>105</x>
+            <y>65</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QLabel" name="MatrixLabel_12">
+          <property name="geometry">
+           <rect>
+            <x>5</x>
+            <y>5</y>
+            <width>95</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Σ</string>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="Displaymatrixbox21_12">
+          <property name="geometry">
+           <rect>
+            <x>205</x>
+            <y>65</y>
+            <width>100</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Matrixcopy_10">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>35</y>
+            <width>30</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>C</string>
+          </property>
+         </widget>
         </widget>
        </widget>
       </widget>

@@ -19,14 +19,21 @@ class openGLDisplay(QtWidgets.QOpenGLWidget):
         self.updateflag = 0
         self.coordinateflag = 0
         self.displayflag = 1
+        self.framecount = 0
+
         self.center = np.array([0.0, 0.0, 0.0])
         self.resetup = np.array([-0.35355339, 0.8660254, -0.35355339])
         self.resetfront = np.array([0.61237244, 0.5, 0.61237244])
         self.front = self.resetfront
         self.up = self.resetup
+
         self.matrix = np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]])
         self.vector1 = np.array([[0.0], [0.0], [0.0]])
         self.vector2 = np.array([[0.0], [0.0], [0.0]])
+
+        self.umatrix = np.identity(3)
+        self.vmatrix = np.identity(3)
+        self.smatrix = np.identity(3)
 
     def paint_axis(self):
         origin = self.center
@@ -218,6 +225,52 @@ class openGLDisplay(QtWidgets.QOpenGLWidget):
         elif(self.displayflag == 2):
             self.paint_matrix(self.matrix)     
             self.paint_matrix_planes(self.matrix)  
+
+        elif(self.displayflag == 3):
+            x1 = self.vmatrix[:, 0]
+            y1 = self.vmatrix[:, 1]
+            z1 = self.vmatrix[:, 2]
+            x = np.array([1.0, 0.0, 0.0])
+            y = np.array([0.0, 1.0, 0.0])
+            z = np.array([0.0, 0.0, 1.0])
+            x2 = self.umatrix[:, 0]
+            y2 = self.umatrix[:, 1]
+            z2 = self.umatrix[:, 2]
+
+            if(self.framecount < 120):
+                self.paint_vector(x1)
+                self.paint_vector(y1)
+                self.paint_vector(z1)
+
+            elif(self.framecount < 240):
+                alpha = (self.framecount - 120) / 120
+                self.paint_vector(x * alpha + x1 * (1 - alpha))
+                self.paint_vector(y * alpha + y1 * (1 - alpha))
+                self.paint_vector(z * alpha + z1 * (1 - alpha))
+
+            elif(self.framecount < 360):
+                alpha = (self.framecount - 240) / 120
+                self.paint_vector(x * (1 - alpha) + x * self.smatrix[0, 0] * alpha)
+                self.paint_vector(y * (1 - alpha) + y * self.smatrix[1, 1] * alpha)
+                self.paint_vector(z * (1 - alpha) + z * self.smatrix[2, 2] * alpha)
+
+            elif(self.framecount < 480):
+                alpha = (self.framecount - 360) / 120
+                self.paint_vector((x2 * alpha + x * (1 - alpha)) * self.smatrix[0, 0])
+                self.paint_vector((y2 * alpha + y * (1 - alpha)) * self.smatrix[1, 1])
+                self.paint_vector((z2 * alpha + z * (1 - alpha)) * self.smatrix[2, 2])
+
+            elif(self.framecount < 550):
+                self.paint_vector(x2 * self.smatrix[0, 0])
+                self.paint_vector(y2 * self.smatrix[1, 1])
+                self.paint_vector(z2 * self.smatrix[2, 2])
+
+            else:
+                self.framecount = -1
+                self.displayflag = 2
+
+            self.framecount += 1
+            self.updateflag = 1
         
     def initializeGL(self):
         print("\033[4;30;102m INITIALIZE GL\033[0m")
@@ -322,17 +375,17 @@ class openGLDisplay(QtWidgets.QOpenGLWidget):
 
         x = 0
         if(event.key() == QtCore.Qt.Key_Left):
-            x = -0.1
+            x = -0.2
         elif(event.key() == QtCore.Qt.Key_Right):
-            x = 0.1
+            x = 0.2
 
         self.center += x * self.zoom * np.cross(self.up, self.front)
 
         y = 0
         if(event.key() == QtCore.Qt.Key_Up):
-            y = 0.1
+            y = 0.2
         elif(event.key() == QtCore.Qt.Key_Down):
-            y = -0.1
+            y = -0.2
 
         self.center += y * self.zoom * self.up
 
