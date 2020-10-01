@@ -64,7 +64,7 @@
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-126</y>
+         <y>0</y>
          <width>440</width>
          <height>1150</height>
         </rect>
@@ -779,10 +779,10 @@
           <number>4</number>
          </property>
          <property name="minimum">
-          <double>-90.000000000000000</double>
+          <double>-180.000000000000000</double>
          </property>
          <property name="maximum">
-          <double>90.000000000000000</double>
+          <double>180.000000000000000</double>
          </property>
          <property name="singleStep">
           <double>5.000000000000000</double>
@@ -820,10 +820,10 @@
           <number>4</number>
          </property>
          <property name="minimum">
-          <double>-90.000000000000000</double>
+          <double>-180.000000000000000</double>
          </property>
          <property name="maximum">
-          <double>90.000000000000000</double>
+          <double>180.000000000000000</double>
          </property>
          <property name="singleStep">
           <double>5.000000000000000</double>
@@ -861,10 +861,10 @@
           <number>4</number>
          </property>
          <property name="minimum">
-          <double>-90.000000000000000</double>
+          <double>-180.000000000000000</double>
          </property>
          <property name="maximum">
-          <double>90.000000000000000</double>
+          <double>180.000000000000000</double>
          </property>
          <property name="singleStep">
           <double>5.000000000000000</double>

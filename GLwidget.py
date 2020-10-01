@@ -168,12 +168,11 @@ class openGLDisplay(QtWidgets.QOpenGLWidget):
         GL.glColor4f(r, g, b, d)   
 
         self.paint_plane(zero, x, x + y, y)
-        self.paint_plane(z, x + z, x + y + z, y + z)
-
         self.paint_plane(zero, y, y + z, z)
-        self.paint_plane(x, y + x, x + y + z, x + z)
-
         self.paint_plane(zero, z, x + z, x)
+
+        self.paint_plane(z, x + z, x + y + z, y + z)
+        self.paint_plane(x, y + x, x + y + z, x + z)
         self.paint_plane(y, y + z, x + y + z, y + x)
 
         GL.glColor4f(0, 0, 0, 1)

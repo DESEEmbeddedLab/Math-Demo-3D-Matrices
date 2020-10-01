@@ -433,9 +433,12 @@ class mainWindow(QtWidgets.QMainWindow):
 
     def Rotationquatcalculatebuttonclicked(self):
         self.matrix = self.Rotationquatcalculate()
-        theta = -math.asin(-self.matrix[2, 0])
-        phi = -math.asin(self.matrix[2, 1] / math.cos(theta))
-        psi = -math.asin(self.matrix[1, 0] / math.cos(theta))
+        try:
+            theta = -math.asin(-self.matrix[2, 0])
+            phi = -math.atan2(self.matrix[2, 1], self.matrix[2, 2])
+            psi = -math.atan2(self.matrix[1, 0], self.matrix[0, 0])
+        except:
+            phi = psi = theta = 0
         self.Rotationxybox.setValue(psi * 180 / math.pi)
         self.Rotationzxbox.setValue(theta * 180 / math.pi)
         self.Rotationyzbox.setValue(phi * 180 / math.pi)
@@ -443,9 +446,12 @@ class mainWindow(QtWidgets.QMainWindow):
 
     def Rotationquatapplybuttonclicked(self):
         matrix = self.Rotationquatcalculate()
-        theta = -math.asin(-matrix[2, 0])
-        phi = -math.asin(matrix[2, 1] / math.cos(theta))
-        psi = -math.asin(matrix[1, 0] / math.cos(theta))
+        try:
+            theta = -math.asin(-matrix[2, 0])
+            phi = -math.atan2(matrix[2, 1], matrix[2, 2])
+            psi = -math.atan2(matrix[1, 0], matrix[0, 0])
+        except:
+            phi = psi = theta = 0
         self.Rotationxybox.setValue(psi * 180 / math.pi)
         self.Rotationzxbox.setValue(theta * 180 / math.pi)
         self.Rotationyzbox.setValue(phi * 180 / math.pi)
